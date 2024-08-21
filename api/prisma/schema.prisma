@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String    @id @default(uuid()) @db.Uuid
+  name       String
+  email      String    @unique
+  avatar     String?
+  providerId String    @unique @map("provider_id")
+  credits    Credit[]
+  messages   Message[]
+  servers    Server[]
+  clients    Client[]
+
+  @@map("users")
+}
+
+enum CreditOperationType {
+  BUY
+  SELL
+
+  @@map("credit_operation_type")
+}
+
+model Server {
+  id              String @id @default(uuid()) @db.Uuid
+  userId          String @map("user_id") @db.Uuid
+  name            String
+  monthlyPrice    Float  @map("monthly_price")
+  bimonthlyPrice  Float  @map("bimonthly_price")
+  quarterlyPrice  Float  @map("quarterly_price")
+  halfYearlyPrice Float  @map("half_yearly_price")
+  annualPrice     Float  @map("annual_price")
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  credits Credit[]
+  clients Client[]
+
+  @@map("servers")
+}
+
+model Credit {
+  id        String              @id @default(uuid()) @db.Uuid
+  userId    String              @map("user_id") @db.Uuid
+  serverId  String?             @map("server_id") @db.Uuid
+  date      DateTime
+  operation CreditOperationType
+  quantity  Int
+  amount    Float
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  server Server? @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  @@map("credits")
+}
+
+model Message {
+  id     String @id @default(uuid()) @db.Uuid
+  userId String @map("user_id") @db.Uuid
+  title  String
+  text   String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+enum ClientPaymentType {
+  CASH
+  PIX
+  CARD
+
+  @@map("client_payment_type")
+}
+
+enum ClientPlanType {
+  MONTHLY
+  BIMONTHLY
+  QUARTERLY
+  HALF_YEARLY
+  ANNUAL
+}
+
+enum ClientProspectionType {
+  GOOGLE
+  INSTAGRAM
+  YOUTUBE
+  INDICATION
+  OTHER
+}
+
+model Client {
+  id             String                 @id @default(uuid()) @db.Uuid
+  userId         String                 @map("user_id") @db.Uuid
+  activeDate     DateTime               @map("active_date")
+  expirationDate DateTime               @map("expiration_date")
+  lastPayment    DateTime               @map("last_payment")
+  name           String
+  login          String
+  password       String
+  isRecurring    Boolean                @map("is_recurring")
+  isActive       Boolean                @map("is_active")
+  paymentMethod  ClientPaymentType      @map("payment_method")
+  conextions     Int
+  plan           ClientPlanType
+  whatsapp       String
+  serverId       String?                @map("server_id") @db.Uuid
+  discount       Float?
+  instagram      String?
+  prospection    ClientProspectionType?
+  email          String?
+  document       String?
+  observations   String?
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  server Server? @relation(fields: [serverId], references: [id], onDelete: SetNull)
+
+  @@map("clients")
+}
