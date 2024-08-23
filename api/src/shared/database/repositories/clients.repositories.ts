@@ -36,4 +36,12 @@ export class ClientsRepository {
   aggregate(countDto: Prisma.ClientAggregateArgs) {
     return this.prismaService.client.aggregate(countDto)
   }
+
+  updateMany(updateManyDto: Prisma.ClientUpdateManyArgs) {
+    return this.prismaService.client.updateMany(updateManyDto)
+  }
+
+  deleteMany(deleteManyDto: Prisma.ClientDeleteManyArgs) {
+    return this.prismaService.client.deleteMany(deleteManyDto)
+  }
 }

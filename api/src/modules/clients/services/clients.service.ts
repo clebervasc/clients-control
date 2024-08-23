@@ -39,9 +39,7 @@ export class ClientsService {
       include: {
         server: true,
       },
-      orderBy: {
-        expirationDate: expirationSortOrder,
-      },
+      orderBy: [{ expirationDate: expirationSortOrder }, { isActive: 'desc' }],
       skip,
       take: validatedLimit,
     })

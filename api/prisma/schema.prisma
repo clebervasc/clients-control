@@ -60,11 +60,20 @@ model Credit {
   @@map("credits")
 }
 
+enum MessageType {
+  BEFORE_EXPIRATION
+  EXPIRATION
+  AFTER_EXPIRATION
+
+  @@map("message_type")
+}
+
 model Message {
-  id     String @id @default(uuid()) @db.Uuid
-  userId String @map("user_id") @db.Uuid
-  title  String
-  text   String
+  id          String      @id @default(uuid()) @db.Uuid
+  userId      String      @map("user_id") @db.Uuid
+  title       String
+  text        String
+  messageType MessageType @unique @map("message_type")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -85,6 +94,8 @@ enum ClientPlanType {
   QUARTERLY
   HALF_YEARLY
   ANNUAL
+
+  @@map("client_plan_type")
 }
 
 enum ClientProspectionType {
@@ -93,6 +104,8 @@ enum ClientProspectionType {
   YOUTUBE
   INDICATION
   OTHER
+
+  @@map("client_propspection_type")
 }
 
 model Client {
