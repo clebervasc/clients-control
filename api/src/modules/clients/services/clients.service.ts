@@ -24,6 +24,8 @@ export class ClientsService {
   async findAllByUserId(
     userId: string,
     expirationSortOrder: ClientExpirationDateSortOrderType = ClientExpirationDateSortOrderType.ASC,
+    login?: string,
+    isActive?: string,
     page: number = 1,
     limit: number = 1,
   ) {
@@ -33,9 +35,16 @@ export class ClientsService {
     const skip = (validatedPage - 1) * validatedLimit
     const total = await this.clientsRepo.count({ where: { userId } })
     const totalPages = Math.ceil(total / validatedLimit)
+    // end pagination
 
     const clients = await this.clientsRepo.findMany({
-      where: { userId },
+      where: {
+        userId,
+        ...(login && { login }),
+        ...((isActive === 'true' || isActive === 'false') && {
+          isActive: isActive === 'true',
+        }),
+      },
       include: {
         server: true,
       },
