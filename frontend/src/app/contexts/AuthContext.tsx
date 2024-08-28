@@ -31,6 +31,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(localStorageKeys.ACCESS_TOKEN, accessToken)
 
     setSignedIn(true)
+    toast.success('Sua sessão foi iniciada com sucesso!')
   }, [])
 
   const signout = useCallback(() => {

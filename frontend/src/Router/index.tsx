@@ -3,6 +3,7 @@ import { AuthGuard } from './AuthGuard'
 
 import { Login } from '../view/pages/Login'
 import { Dashboard } from '../view/pages/Dashboard'
+import { Control } from '../view/pages/Control'
 
 export function Router() {
   return (
@@ -13,7 +14,9 @@ export function Router() {
         </Route>
 
         <Route element={<AuthGuard isPrivate />}>
-          <Route path="/" element={<Dashboard />} />
+          <Route element={<Dashboard />}>
+            <Route path="/" element={<Control />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
