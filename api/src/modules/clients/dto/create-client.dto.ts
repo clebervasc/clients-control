@@ -20,6 +20,9 @@ export class CreateClientDto {
   @IsUUID()
   serverId?: string
 
+  @IsOptional()
+  mfcId?: string
+
   @IsNotEmpty()
   @IsDateString()
   activeDate: string
@@ -68,7 +71,7 @@ export class CreateClientDto {
   @IsNumber()
   @IsNotEmpty()
   @IsPositive()
-  conextions: number
+  connections: number
 
   @IsOptional()
   instagram?: string
