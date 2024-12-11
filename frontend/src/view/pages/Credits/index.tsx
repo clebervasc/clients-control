@@ -4,7 +4,7 @@ import { useCreditsController } from './useCreditsController'
 import { CreditContext, CreditProvider } from './Components/CreditContext'
 import { LaunchScreen } from '../../components/LaunchScreen'
 
-import emptyStateImage from '../../../assets/emptyState.svg'
+import emptyStateImage from '../../../../public/emptyState.svg'
 import { NewCredit } from './New'
 import { ButtonCreate } from './Components/ButtonCreate'
 import { Delete } from './Components/Delete'

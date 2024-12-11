@@ -1,7 +1,7 @@
 import { Transition } from '@headlessui/react'
 
 import Player from 'lottie-react'
-import animationData from '../../assets/loading.json'
+import animationData from '../../../public/loading.json'
 
 interface LaunchScreenProps {
   isLoading: boolean

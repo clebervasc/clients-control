@@ -2,7 +2,7 @@ import { LaunchScreen } from '../../components/LaunchScreen'
 
 import _ from 'lodash'
 
-import emptyStateImage from '../../../assets/emptyState.svg'
+import emptyStateImage from '../../../../public/emptyState.svg'
 import { useMessagesController } from './useMessagesController'
 import { MessageContext, MessageProvider } from './components/MessageContext'
 import { Card } from './components/Card'

@@ -11,7 +11,7 @@ import {
 
 import _ from 'lodash'
 
-import emptyStateImage from '../../../assets/emptyState.svg'
+import emptyStateImage from '../../../../public/emptyState.svg'
 import { ConfirmDeleteModal } from '../../components/ConfirmDeleteModal'
 import { ConfirmRenewModal } from '../../components/ConfirmRenewModal'
 import { Search } from './components/Search'

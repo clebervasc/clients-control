@@ -8,7 +8,7 @@ import {
 
 import _ from 'lodash'
 
-import emptyStateImage from '../../../assets/emptyState.svg'
+import emptyStateImage from '../../../../public/emptyState.svg'
 import { ConfirmDeleteModal } from '../../components/ConfirmDeleteModal'
 import { EditServer } from './Edit'
 import { ServerContext, ServerProvider } from './components/ServerContext'

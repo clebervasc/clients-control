@@ -6,9 +6,6 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      backgroundImage: {
-        login: "url('./src/assets/login-bg.svg')",
-      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
