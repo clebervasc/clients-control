@@ -9,15 +9,11 @@ import {
   Param,
   ParseUUIDPipe,
   Put,
-  Query,
-  ParseIntPipe,
 } from '@nestjs/common'
 import { CreateCreditDto } from './dto/create-credit.dto'
 import { ActiveUserId } from 'src/shared/database/decorators/ActiveUserId'
 import { CreditsService } from './services/credits.service'
 import { UpdateCreditDto } from './dto/update-credit.dto'
-import { OptionalParseUUIDPipe } from 'src/shared/pipes/OptionalParseUUIDPipe'
-
 @Controller('credits')
 export class CreditsController {
   constructor(private readonly creditsService: CreditsService) {}
@@ -31,17 +27,8 @@ export class CreditsController {
   }
 
   @Get()
-  findAll(
-    @ActiveUserId() userId: string,
-    @Query('month', ParseIntPipe) month: number,
-    @Query('year', ParseIntPipe) year: number,
-    @Query('serverId', OptionalParseUUIDPipe) serverId?: string,
-  ) {
-    return this.creditsService.findAllByUserId(userId, {
-      serverId,
-      month,
-      year,
-    })
+  findAll(@ActiveUserId() userId: string) {
+    return this.creditsService.findAllByUserId(userId)
   }
 
   @Put(':creditId')

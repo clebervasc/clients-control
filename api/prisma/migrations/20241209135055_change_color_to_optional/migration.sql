@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "servers" ALTER COLUMN "color" DROP NOT NULL,
+ALTER COLUMN "color" DROP DEFAULT;

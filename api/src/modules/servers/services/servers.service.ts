@@ -20,6 +20,7 @@ export class ServersService {
       quarterlyPrice,
       halfYearlyPrice,
       annualPrice,
+      color,
     } = createServerDto
 
     return this.serversRepo.create({
@@ -31,6 +32,7 @@ export class ServersService {
         quarterlyPrice,
         halfYearlyPrice,
         annualPrice,
+        color,
       },
     })
   }

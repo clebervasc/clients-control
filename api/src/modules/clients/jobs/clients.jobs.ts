@@ -28,6 +28,7 @@ export class ClientsJobs {
       },
       data: {
         isActive: false,
+        isRecurring: false,
       },
     })
 

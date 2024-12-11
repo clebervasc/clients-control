@@ -1,4 +1,11 @@
-import { IsString, IsNotEmpty, IsNumber, IsPositive } from 'class-validator'
+import {
+  IsString,
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+  IsHexColor,
+  IsOptional,
+} from 'class-validator'
 
 export class CreateServerDto {
   @IsString()
@@ -29,4 +36,9 @@ export class CreateServerDto {
   @IsNotEmpty()
   @IsPositive()
   annualPrice: number
+
+  @IsString()
+  @IsOptional()
+  @IsHexColor()
+  color: string
 }

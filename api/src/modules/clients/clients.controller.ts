@@ -6,6 +6,7 @@ import {
   Param,
   ParseUUIDPipe,
   Put,
+  Patch,
   Delete,
   HttpCode,
   HttpStatus,
@@ -19,6 +20,7 @@ import { ClientsService } from './services/clients.service'
 import { UpdateClientDto } from './dto/update-client.dto'
 import { ClientExpirationDateSortOrderType } from './entities/client.entity'
 import { OptionalParseEnumPipe } from 'src/shared/pipes/OptionalParseEnumPipe'
+import { RenewClientDto } from './dto/renew-client-dto'
 
 @Controller('clients')
 export class ClientsController {
@@ -55,6 +57,15 @@ export class ClientsController {
     )
   }
 
+  @Get(':clientId')
+  async findOneById(
+    @ActiveUserId() userId: string,
+    @Param('clientId', ParseUUIDPipe)
+    clientId: string,
+  ) {
+    return this.clientsService.findOneById(userId, clientId)
+  }
+
   @Put(':clientId')
   update(
     @ActiveUserId() userId: string,
@@ -72,5 +83,14 @@ export class ClientsController {
     clientId: string,
   ) {
     return this.clientsService.remove(userId, clientId)
+  }
+
+  @Patch(':clientId')
+  updateIsActive(
+    @ActiveUserId() userId: string,
+    @Param('clientId', ParseUUIDPipe) clientId: string,
+    @Body() renewClient: RenewClientDto,
+  ) {
+    return this.clientsService.renew(userId, clientId, renewClient)
   }
 }

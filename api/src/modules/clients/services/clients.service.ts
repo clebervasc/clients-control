@@ -4,6 +4,10 @@ import { CreateClientDto } from '../dto/create-client.dto'
 import { ValidateClientsOwnershipService } from './validate-clients-ownership.service'
 import { UpdateClientDto } from '../dto/update-client.dto'
 import { ClientExpirationDateSortOrderType } from '../entities/client.entity'
+import { RenewClientDto } from '../dto/renew-client-dto'
+
+import { addDays } from 'date-fns'
+import { getDaysToAdd } from './utils'
 
 @Injectable()
 export class ClientsService {
@@ -74,6 +78,21 @@ export class ClientsService {
     return null
   }
 
+  async findOneById(userId: string, clientId: string) {
+    await this.validateClientsOwnershipService.validate(userId, clientId)
+
+    const client = await this.clientsRepo.findFirst({
+      where: { id: clientId },
+      include: { server: true },
+    })
+
+    if (!client) {
+      throw new Error('Client not found')
+    }
+
+    return client
+  }
+
   async update(
     userId: string,
     clientId: string,
@@ -87,5 +106,43 @@ export class ClientsService {
         ...updateClientDto,
       },
     })
+  }
+
+  async renew(
+    userId: string,
+    clientId: string,
+    RenewClientDto: RenewClientDto,
+  ) {
+    await this.validateClientsOwnershipService.validate(userId, clientId)
+
+    const client = await this.clientsRepo.findFirst({
+      where: { id: clientId },
+    })
+
+    if (!client) {
+      throw new Error('Client not found')
+    }
+
+    const today = new Date()
+    const currentExpirationDate =
+      new Date(client.expirationDate) < today
+        ? today
+        : new Date(client.expirationDate)
+
+    const daysToAdd = getDaysToAdd(RenewClientDto.plan)
+
+    const newExpirationDate = addDays(currentExpirationDate, daysToAdd)
+
+    const renewedClient = await this.clientsRepo.update({
+      where: { id: clientId },
+      data: {
+        expirationDate: newExpirationDate,
+        isActive: true,
+        isRecurring: true,
+        lastPayment: today,
+      },
+    })
+
+    return renewedClient
   }
 }

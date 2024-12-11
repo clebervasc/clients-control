@@ -26,28 +26,31 @@ export class CreditsService {
     })
   }
 
-  async findAllByUserId(
-    userId: string,
-    filters: {
-      serverId?: string
-      month: number
-      year: number
-    },
-  ) {
+  async findAllByUserId(userId: string) {
     const credits = await this.creditsRepo.findMany({
       where: {
         userId,
+      },
+      select: {
+        id: true,
+        date: true,
+        operation: true,
+        quantity: true,
+        amount: true,
         server: {
-          id: filters.serverId,
-        },
-        date: {
-          gte: new Date(Date.UTC(filters.year, filters.month)),
-          lt: new Date(Date.UTC(filters.year, filters.month + 1)),
+          select: {
+            id: true,
+            name: true,
+          },
         },
       },
     })
 
-    return credits
+    return credits.sort(
+      (creditDatePrev, creditDateNext) =>
+        new Date(creditDateNext.date).getTime() -
+        new Date(creditDatePrev.date).getTime(),
+    )
   }
 
   async remove(userId: string, CreditId: string) {

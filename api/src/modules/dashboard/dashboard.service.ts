@@ -6,6 +6,12 @@ export class DashboardService {
   constructor(private readonly clientsRepo: ClientsRepository) {}
 
   async findAllByUserId(userId: string) {
+    const today = new Date()
+    today.setUTCHours(0, 0, 0, 0) // Define como meia-noite em UTC
+
+    const yesterday = new Date(today)
+    yesterday.setUTCDate(today.getUTCDate() - 1) // Retrocede um dia
+
     const totalClients = await this.clientsRepo.count({
       where: { userId },
     })
@@ -22,7 +28,7 @@ export class DashboardService {
       where: {
         userId,
         expirationDate: {
-          lt: new Date(),
+          lt: today,
         },
       },
     })

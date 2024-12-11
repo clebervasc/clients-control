@@ -13,6 +13,7 @@ import {
   IsPositive,
   IsOptional,
   IsUUID,
+  Min,
 } from 'class-validator'
 
 export class CreateClientDto {
@@ -65,7 +66,7 @@ export class CreateClientDto {
 
   @IsNumber()
   @IsOptional()
-  @IsPositive()
+  @Min(0)
   discount?: number
 
   @IsNumber()
