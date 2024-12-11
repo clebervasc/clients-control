@@ -7,7 +7,7 @@ function DrodownMenuRoot({ children }: { children: React.ReactNode }) {
 
 function DrodownMenuTrigger({ children }: { children: React.ReactNode }) {
   return (
-    <RdxDropdownMenu.Trigger className="outline-none cursor-pointer" asChild>
+    <RdxDropdownMenu.Trigger className="outline-none" asChild>
       {children}
     </RdxDropdownMenu.Trigger>
   )

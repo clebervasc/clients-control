@@ -8,5 +8,5 @@ export function useDashboardControl() {
     staleTime: Infinity,
   })
 
-  return { control: data ?? {}, isFetching }
+  return { data, isFetching }
 }

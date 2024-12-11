@@ -1,7 +1,7 @@
-import { ExitIcon } from '@radix-ui/react-icons'
 import { useAuth } from '../../../../app/hooks/useAuth'
 import { DropdownMenu } from '../../../components/DropdownMenu'
 import { googleLogout } from '@react-oauth/google'
+import { LogOutIcon } from 'lucide-react'
 
 export function UserMenu() {
   const { signout, user } = useAuth()
@@ -9,7 +9,13 @@ export function UserMenu() {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
-        <div className="avatar">
+        <div className="avatar gap-4 flex items-center">
+          <span className="text-right">
+            <span className="block text-sm font-medium text-black dark:text-white">
+              {user?.name}
+            </span>
+            <span className="block text-xs dark:text-white">{user?.email}</span>
+          </span>
           <img
             className="inline-block size-[38px] rounded-full"
             src={user?.avatar}
@@ -27,7 +33,7 @@ export function UserMenu() {
           }}
         >
           Sair
-          <ExitIcon className="w-4 h-4" />
+          <LogOutIcon className="w-4 h-4" />
         </DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>

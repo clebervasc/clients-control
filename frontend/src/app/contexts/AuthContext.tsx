@@ -7,6 +7,7 @@ import { localStorageKeys } from '../config/localStorageKeys'
 import { User } from '../entities/User'
 import { login } from '../services/authService/login'
 import { usersService } from '../services/usersService'
+import { LaunchScreen } from '../../view/components/LaunchScreen'
 
 interface AuthContextValue {
   signedIn: boolean
@@ -88,7 +89,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         user: data,
       }}
     >
-      {isFetching && 'CARREGANDO'}
+      <LaunchScreen isLoading={isFetching} />
       {!isFetching && children}
     </AuthContext.Provider>
   )
