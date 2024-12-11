@@ -11,7 +11,7 @@ export const Login = () => {
         Controle de Clientes
       </h1>
       <p className="text-xl text-white text-center">
-        Organize seus clientes, servidores, crẽditos e muito mais!
+        Organize seus clientes, servidores, créditos e muito mais!
       </p>
       <GoogleLogin
         auto_select
