@@ -11,6 +11,7 @@ export enum ClientPlanType {
   HALF_YEARLY = 'HALF_YEARLY',
   ANNUAL = 'ANNUAL',
 }
+
 export enum ClientProspectionType {
   GOOGLE = 'GOOGLE',
   INSTAGRAM = 'INSTAGRAM',
