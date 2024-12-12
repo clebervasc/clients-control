@@ -6,11 +6,13 @@ import { useDashboard } from '../../../Dashboard/components/DashboardContext/use
 export const ControlCard = ({
   title,
   value,
+  count,
   color,
   icon,
 }: {
   title: string
-  value: number
+  value: string
+  count?: number | string
   color?: string
   icon: ReactNode
 }) => {
@@ -22,7 +24,15 @@ export const ControlCard = ({
         <span className={cn('relative p-2 bg-purple-200 rounded-xl', color)}>
           {icon}
         </span>
-        <p className="ml-2 text-black text-md dark:text-white">{title}</p>
+        <p className="flex ml-2 text-black text-md dark:text-white gap-2">
+          <span>{title}</span>
+          {count && (
+            <>
+              <span>|</span>
+              <span className="font-bold">{count}</span>
+            </>
+          )}
+        </p>
       </div>
       <div className="flex flex-col justify-start">
         <p

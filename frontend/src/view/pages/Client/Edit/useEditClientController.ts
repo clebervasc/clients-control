@@ -91,6 +91,7 @@ export const useEditClientController = () => {
 
       await mutateAsync(newData)
 
+      queryClient.invalidateQueries({ queryKey: ['dashboard-control'] })
       queryClient.invalidateQueries({ queryKey: ['clients-control'] })
       queryClient.invalidateQueries({ queryKey: ['client-get'] })
       toast.success('Cliente foi editado com sucesso!')
