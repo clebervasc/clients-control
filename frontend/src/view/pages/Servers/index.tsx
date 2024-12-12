@@ -8,7 +8,6 @@ import {
 
 import _ from 'lodash'
 
-import emptyStateImage from '../../../../public/emptyState.svg'
 import { ConfirmDeleteModal } from '../../components/ConfirmDeleteModal'
 import { EditServer } from './Edit'
 import { ServerContext, ServerProvider } from './components/ServerContext'
@@ -62,7 +61,7 @@ export function Servers() {
 
               {!_.some(data) && !isFetching && (
                 <div className="flex flex-col items-center justify-center mt-40">
-                  <img src={emptyStateImage} alt="Empty state" />
+                  <img src="/emptyState.svg" alt="Empty state" />
                   <p className="dark:text-gray-200 text-gray-800 mt-4 text-center text-lg">
                     Não encontramos nenhum servidor!
                   </p>

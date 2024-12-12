@@ -11,7 +11,6 @@ import {
 
 import _ from 'lodash'
 
-import emptyStateImage from '../../../../public/emptyState.svg'
 import { ConfirmDeleteModal } from '../../components/ConfirmDeleteModal'
 import { ConfirmRenewModal } from '../../components/ConfirmRenewModal'
 import { Search } from './components/Search'
@@ -124,7 +123,7 @@ export function Control() {
 
         {!_.some(clients?.clients) && !isFetching && !clientsLoading && (
           <div className="flex flex-col items-center justify-center mt-40">
-            <img src={emptyStateImage} alt="Empty state" />
+            <img src="/emptyState.svg" alt="Empty state" />
             <p className="dark:text-gray-200 text-gray-800">
               Não encontramos nenhum Cliente!
             </p>

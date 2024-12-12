@@ -2,15 +2,13 @@ import { GoogleLogin } from '@react-oauth/google'
 
 import { useAuth } from '../../../app/hooks/useAuth'
 
-import bg from '../../../../public/login-bg.svg'
-
 export const Login = () => {
   const { loginSucess } = useAuth()
 
   return (
     <div className="w-full h-full flex items-center justify-center flex-col bg-login bg-cover gap-4">
       <img
-        src={bg}
+        src="/login-bg.svg"
         alt="bg"
         className="w-full h-full absolute object-cover z-0"
       />

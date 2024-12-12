@@ -4,7 +4,6 @@ import { RenewClientParams } from '../../../../../app/services/clientsService/re
 import { Client } from '../../../../../app/entities/Clients'
 import { PlanLowerEnum } from '../../../../../app/entities/Plan'
 import { Edit, Eye, Handshake, TrashIcon } from 'lucide-react'
-import { useDashboard } from '@/pages/Dashboard/components/DashboardContext/useDashboard'
 
 interface PopoverProps {
   client: Client
@@ -17,7 +16,6 @@ export const Popover = ({
   openDeleteClientModalOpen,
   openRenewClientModalOpen,
 }: PopoverProps) => {
-  const { handleClientBeingEdited } = useDashboard()
   const navigate = useNavigate()
 
   const handleClientView = () => {
@@ -25,7 +23,6 @@ export const Popover = ({
   }
 
   const handleClientEdit = () => {
-    handleClientBeingEdited(client)
     navigate(`/clientes/editar/${client.id}`)
   }
 

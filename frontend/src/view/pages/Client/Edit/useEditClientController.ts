@@ -11,11 +11,7 @@ import { clientsService } from '../../../../app/services/clientsService'
 import { getDaysToAdd } from '../../../../app/utils/getDaysToAdd'
 import { addDays } from 'date-fns'
 import { currencyStringToNumber } from '../../../../app/utils/currencyStringToNumber'
-import { useDashboard } from '@/pages/Dashboard/components/DashboardContext/useDashboard'
-import { Client } from '../../../../app/entities/Clients'
-import { formatDate } from '../../../../app/utils/formatDate'
-import { useNavigate } from 'react-router-dom'
-import { localStorageKeys } from '../../../../app/config/localStorageKeys'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const schema = z.object({
   name: z.string().min(1, 'Nome é obrigatório e deve ser preenchido.'),
@@ -57,9 +53,6 @@ type FormData = z.infer<typeof schema>
 
 export const useEditClientController = () => {
   const navigate = useNavigate()
-  const { clientBeingEdited: client } = useDashboard()
-
-  const clientBeingEdited = JSON.parse(client!) as Client
 
   const { data: servers, isFetching: isLoadingServers } = useServersControl()
 
@@ -71,29 +64,11 @@ export const useEditClientController = () => {
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      activeDate: formatDate(new Date(clientBeingEdited!.activeDate), 'iso'),
-      connections: String(clientBeingEdited!.connections),
-      discount: String(clientBeingEdited!.discount),
-      document: clientBeingEdited!.document,
-      email: clientBeingEdited!.email!,
-      instagram: clientBeingEdited!.instagram,
-      lastPayment: formatDate(new Date(clientBeingEdited!.lastPayment), 'iso'),
-      login: clientBeingEdited!.login,
-      mfcId: clientBeingEdited!.mfcId,
-      name: clientBeingEdited!.name,
-      observations: clientBeingEdited!.observations,
-      password: clientBeingEdited!.password,
-      paymentMethod: clientBeingEdited!.paymentMethod,
-      plan: clientBeingEdited!.plan,
-      prospection: clientBeingEdited!.prospection || undefined,
-      serverId: clientBeingEdited!.serverId,
-      whatsapp: clientBeingEdited!.whatsapp,
-    },
   })
 
   const queryClient = useQueryClient()
   const { isLoading, mutateAsync } = useMutation(clientsService.update)
+  const { clientId } = useParams()
 
   const handleSubmit = hookFormSubmit(async (data) => {
     try {
@@ -101,7 +76,7 @@ export const useEditClientController = () => {
       const expirationDate = addDays(new Date(data.lastPayment), daysToAdd)
       const newData = {
         ...data,
-        id: clientBeingEdited!.id,
+        id: clientId!,
         activeDate: new Date(data.activeDate).toISOString(),
         lastPayment: new Date(data.lastPayment).toISOString(),
         expirationDate: new Date(expirationDate).toISOString(),
@@ -121,8 +96,6 @@ export const useEditClientController = () => {
       toast.success('Cliente foi editado com sucesso!')
 
       reset()
-
-      localStorage.removeItem(localStorageKeys.CLIENT)
       navigate('/')
     } catch {
       toast.error('Erro ao editar o cliente!')

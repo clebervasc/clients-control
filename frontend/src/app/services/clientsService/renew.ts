@@ -6,7 +6,11 @@ export interface RenewClientParams {
 }
 
 export async function renew({ clientId, ...params }: RenewClientParams) {
-  const { data } = await httpClient.patch(`/clients/${clientId}`, params)
+  const plan = {
+    plan: params.plan === 'halfYearly' ? 'half_yearly' : params.plan,
+  }
+
+  const { data } = await httpClient.patch(`/clients/${clientId}`, plan)
 
   return data
 }

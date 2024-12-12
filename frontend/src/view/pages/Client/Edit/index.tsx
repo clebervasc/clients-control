@@ -10,6 +10,9 @@ import { TextArea } from '@/components/TextArea'
 import { Button } from '@/components/Button'
 
 import { whatsappMask } from '../../../../app/utils/whatsappMask'
+import { useGetClientController } from '../useClientController'
+
+import { formatDate } from '../../../../app/utils/formatDate'
 
 export const ClientEdit = () => {
   const {
@@ -22,7 +25,9 @@ export const ClientEdit = () => {
     isLoading,
   } = useEditClientController()
 
-  if (isLoadingServers) {
+  const { data } = useGetClientController()
+
+  if (!data || isLoadingServers) {
     return <LaunchScreen isLoading />
   }
 
@@ -47,6 +52,7 @@ export const ClientEdit = () => {
                     type="text"
                     placeholder="Nome"
                     error={errors.name?.message}
+                    defaultValue={data?.name}
                     {...register('name')}
                   />
                 </div>
@@ -55,6 +61,7 @@ export const ClientEdit = () => {
                     type="text"
                     placeholder="Login"
                     error={errors.login?.message}
+                    defaultValue={data?.login}
                     {...register('login')}
                   />
                 </div>
@@ -63,6 +70,7 @@ export const ClientEdit = () => {
                     type="text"
                     placeholder="Senha"
                     error={errors.password?.message}
+                    defaultValue={data?.password}
                     {...register('password')}
                   />
                 </div>
@@ -71,6 +79,7 @@ export const ClientEdit = () => {
                     type="text"
                     placeholder="Id"
                     error={errors.mfcId?.message}
+                    defaultValue={data?.mfcId}
                     {...register('mfcId')}
                   />
                 </div>
@@ -80,6 +89,7 @@ export const ClientEdit = () => {
                     placeholder="WhatsApp"
                     mask={whatsappMask}
                     error={errors.whatsapp?.message}
+                    defaultValue={data?.whatsapp}
                     {...register('whatsapp')}
                   />
                 </div>
@@ -91,6 +101,7 @@ export const ClientEdit = () => {
                   <Controller
                     control={control}
                     name="serverId"
+                    defaultValue={data?.serverId}
                     render={({ field: { onChange, value } }) => (
                       <Select
                         placeholder="Servidor"
@@ -106,7 +117,7 @@ export const ClientEdit = () => {
                   <Controller
                     control={control}
                     name="plan"
-                    defaultValue="MONTHLY"
+                    defaultValue={data?.plan}
                     render={({ field: { onChange, value } }) => (
                       <Select
                         placeholder="Plano"
@@ -144,6 +155,7 @@ export const ClientEdit = () => {
                     className="font-bold"
                     type="date"
                     placeholder="Data de ativação"
+                    defaultValue={formatDate(new Date(data.activeDate), 'iso')}
                     error={errors?.activeDate?.message}
                     {...register('activeDate')}
                   />
@@ -154,6 +166,7 @@ export const ClientEdit = () => {
                     className="font-bold"
                     type="date"
                     placeholder="Último pagamento"
+                    defaultValue={formatDate(new Date(data.lastPayment), 'iso')}
                     error={errors?.lastPayment?.message}
                     {...register('lastPayment')}
                   />
@@ -163,8 +176,8 @@ export const ClientEdit = () => {
                   <Input
                     type="number"
                     placeholder="Conexões"
-                    defaultValue={1}
                     min={1}
+                    defaultValue={data?.connections}
                     error={errors.connections?.message}
                     {...register('connections')}
                   />
@@ -174,7 +187,7 @@ export const ClientEdit = () => {
                   <Controller
                     control={control}
                     name="paymentMethod"
-                    defaultValue="PIX"
+                    defaultValue={data?.paymentMethod}
                     render={({ field: { onChange, value } }) => (
                       <Select
                         placeholder="Método de pagamento"
@@ -204,7 +217,7 @@ export const ClientEdit = () => {
                   <Controller
                     control={control}
                     name="discount"
-                    defaultValue="0,00"
+                    defaultValue={String(data?.discount)}
                     render={({ field: { onChange, value } }) => (
                       <InputCurrency
                         error={errors.discount?.message}
@@ -223,6 +236,7 @@ export const ClientEdit = () => {
                   <Controller
                     control={control}
                     name="prospection"
+                    defaultValue={data?.prospection || undefined}
                     render={({ field: { onChange, value } }) => (
                       <Select
                         placeholder="Prospecção"
@@ -259,6 +273,7 @@ export const ClientEdit = () => {
                   <Input
                     type="text"
                     placeholder="Instagram"
+                    defaultValue={data?.instagram || undefined}
                     error={errors.instagram?.message}
                     {...register('instagram')}
                   />
@@ -268,6 +283,7 @@ export const ClientEdit = () => {
                   <Input
                     type="text"
                     placeholder="E-mail"
+                    defaultValue={data?.email || undefined}
                     error={errors.email?.message}
                     {...register('email')}
                   />
@@ -277,6 +293,7 @@ export const ClientEdit = () => {
                   <Input
                     type="text"
                     placeholder="Documento"
+                    defaultValue={data?.document || undefined}
                     error={errors.document?.message}
                     {...register('document')}
                   />
@@ -289,6 +306,7 @@ export const ClientEdit = () => {
                   id="text"
                   className="min-h-44"
                   placeholder="Observações"
+                  defaultValue={data?.observations || undefined}
                   error={errors?.observations?.message}
                   {...register('observations')}
                 />

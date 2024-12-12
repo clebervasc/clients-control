@@ -2,7 +2,6 @@ import { LaunchScreen } from '../../components/LaunchScreen'
 
 import _ from 'lodash'
 
-import emptyStateImage from '../../../../public/emptyState.svg'
 import { useMessagesController } from './useMessagesController'
 import { MessageContext, MessageProvider } from './components/MessageContext'
 import { Card } from './components/Card'
@@ -48,7 +47,7 @@ export function Messages() {
 
               {!_.some(data) && !isFetching && (
                 <div className="flex flex-col items-center justify-center mt-40">
-                  <img src={emptyStateImage} alt="Empty state" />
+                  <img src="/emptyState.svg" alt="Empty state" />
                   <p className="dark:text-gray-200 text-gray-800 mt-4 text-center text-lg">
                     Não encontramos nenhuma mensagem!
                   </p>
