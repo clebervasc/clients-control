@@ -8,10 +8,15 @@ interface InputProps extends ComponentProps<'input'> {
 }
 
 export const InputDate = forwardRef<HTMLInputElement, InputProps>(
-  ({ placeholder, name, id, error, className, type, ...props }, ref) => {
+  (
+    { placeholder, name, id, error, className, type, defaultValue, ...props },
+    ref,
+  ) => {
     const inputId = id ?? name
 
-    const todayDate = new Date().toISOString().split('T')[0]
+    const defaultDate = defaultValue
+      ? new Date(defaultValue as string).toISOString().split('T')[0]
+      : new Date().toISOString().split('T')[0]
 
     return (
       <div className="relative">
@@ -22,8 +27,8 @@ export const InputDate = forwardRef<HTMLInputElement, InputProps>(
           id={inputId}
           type={type}
           placeholder=" "
-          defaultValue={todayDate}
-          max={todayDate}
+          defaultValue={defaultDate}
+          max={defaultDate}
           className={cn(
             'dark:bg-gray-800 bg-white w-full rounded-lg border dark:border-gray-800 border-gray-500 px-3 h-[48px] dark:text-gray-100 text-gray-800 pt-4 peer placeholder-shown:pt-0 focus:dark:border-gray-800 focus:border-gray-800 transition-all outline-none',
             error && '!border-red-600',

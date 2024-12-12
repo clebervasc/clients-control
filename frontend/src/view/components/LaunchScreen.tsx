@@ -21,7 +21,7 @@ export function LaunchScreen({ isLoading }: LaunchScreenProps) {
       <div className="bg-gray-500 fixed top-0 left-0 w-full h-full grid place-items-center z-50">
         <div className="flex flex-col items-center gap-4">
           <Player autoplay loop animationData={animationData} />
-          <span className="dark:text-gray-800">Carregando...</span>
+          <span className="text-gray-200">Carregando...</span>
         </div>
       </div>
     </Transition>
