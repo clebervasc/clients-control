@@ -6,7 +6,7 @@ export const getDaysToAdd = (plan: string): number => {
       return 59
     case 'quarterly':
       return 89
-    case 'halfY_early':
+    case 'half_yearly':
       return 179
     case 'annual':
       return 364
