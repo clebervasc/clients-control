@@ -17,7 +17,10 @@ export function checkValidityDate(dateString: string): {
 
   const customTranslations: Record<number, string> = {
     1: 'AMANHÃ',
-    2: '2 DIAS',
+    2: 'RESTAM 2 DIAS',
+    3: 'RESTAM 3 DIAS',
+    4: 'RESTAM 4 DIAS',
+    5: 'RESTAM 5 DIAS',
   }
 
   if (differenceInDays < 0) {

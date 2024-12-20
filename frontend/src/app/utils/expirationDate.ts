@@ -15,8 +15,10 @@ export const expirationDate = (expirationDateString: string) => {
       'bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500',
     differenceInDays === 0 &&
       'bg-orange-100 text-orange-800 dark:bg-orange-800/30 dark:text-orange-500',
-    differenceInDays > 0 &&
-      differenceInDays < 3 &&
+    differenceInDays === 1 &&
+      'bg-orange-100 text-orange-800 dark:bg-orange-800/30 dark:text-orange-500',
+    differenceInDays > 1 &&
+      differenceInDays < 4 &&
       'bg-yellow-100 text-yellow-800 dark:bg-yellow-800/30 dark:text-yellow-500',
   )
 }

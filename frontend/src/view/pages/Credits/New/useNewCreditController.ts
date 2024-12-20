@@ -7,6 +7,7 @@ import { z } from 'zod'
 import { useCredit } from '../Components/CreditContext/useCredit'
 import { creditsService } from '../../../../app/services/creditsService'
 import { currencyStringToNumber } from '../../../../app/utils/currencyStringToNumber'
+import { startOfDay } from '../../../../app/utils/startOfDay'
 
 const schema = z.object({
   serverId: z.string().min(1, 'Servidor é obrigatório'),
@@ -43,7 +44,7 @@ export const useNewCreditController = () => {
       await mutateAsync({
         ...data,
         quantity: Number(data.quantity),
-        date: new Date(data.date).toISOString(),
+        date: startOfDay(data.date),
         amount: currencyStringToNumber(data.amount),
       })
 

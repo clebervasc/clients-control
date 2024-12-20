@@ -12,6 +12,7 @@ import { getDaysToAdd } from '../../../../app/utils/getDaysToAdd'
 import { addDays } from 'date-fns'
 import { currencyStringToNumber } from '../../../../app/utils/currencyStringToNumber'
 import { useNavigate, useParams } from 'react-router-dom'
+import { startOfDay } from '../../../../app/utils/startOfDay'
 
 const schema = z.object({
   name: z.string().min(1, 'Nome é obrigatório e deve ser preenchido.'),
@@ -77,9 +78,9 @@ export const useEditClientController = () => {
       const newData = {
         ...data,
         id: clientId!,
-        activeDate: new Date(data.activeDate).toISOString(),
-        lastPayment: new Date(data.lastPayment).toISOString(),
-        expirationDate: new Date(expirationDate).toISOString(),
+        activeDate: startOfDay(data.activeDate),
+        lastPayment: startOfDay(data.lastPayment),
+        expirationDate: startOfDay(expirationDate),
         isRecurring: false,
         isActive: true,
         discount: currencyStringToNumber(data.discount ?? 0),

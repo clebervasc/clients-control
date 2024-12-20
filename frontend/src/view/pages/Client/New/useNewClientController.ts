@@ -11,6 +11,7 @@ import { getDaysToAdd } from '../../../../app/utils/getDaysToAdd'
 import { addDays } from 'date-fns'
 import { currencyStringToNumber } from '../../../../app/utils/currencyStringToNumber'
 import { useNavigate } from 'react-router-dom'
+import { startOfDay } from '../../../../app/utils/startOfDay'
 
 const schema = z.object({
   name: z.string().min(1, 'Nome é obrigatório e deve ser preenchido.'),
@@ -69,16 +70,14 @@ export const useNewClientController = () => {
 
   const handleSubmit = hookFormSubmit(async (data) => {
     try {
-      console.log(data.plan.toLocaleLowerCase())
-
       const daysToAdd = getDaysToAdd(data.plan.toLocaleLowerCase())
       const expirationDate = addDays(new Date(data.lastPayment), daysToAdd)
 
       const newData = {
         ...data,
-        activeDate: new Date(data.activeDate).toISOString(),
-        lastPayment: new Date(data.lastPayment).toISOString(),
-        expirationDate: new Date(expirationDate).toISOString(),
+        activeDate: startOfDay(data.activeDate),
+        lastPayment: startOfDay(data.lastPayment),
+        expirationDate: startOfDay(expirationDate),
         isRecurring: false,
         isActive: true,
         discount: currencyStringToNumber(data.discount ?? 0),
