@@ -42,7 +42,7 @@ export class ClientsController {
       new OptionalParseEnumPipe(ClientExpirationDateSortOrderType),
     )
     expirationSortOrder?: ClientExpirationDateSortOrderType,
-    @Query('login') login?: string,
+    @Query('search') search?: string,
     @Query('isActive') isActive?: string,
     @Query('page', ParseIntPipe) page: number = 1,
     @Query('limit', ParseIntPipe) limit: number = 1,
@@ -50,7 +50,7 @@ export class ClientsController {
     return this.clientsService.findAllByUserId(
       userId,
       expirationSortOrder,
-      login,
+      search,
       isActive,
       page,
       limit,

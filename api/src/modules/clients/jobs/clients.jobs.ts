@@ -18,9 +18,6 @@ export class ClientsJobs {
     const threeDaysAgo = new Date(now)
     threeDaysAgo.setDate(now.getDate() - 3)
 
-    const fiveDaysAgo = new Date(now)
-    fiveDaysAgo.setDate(now.getDate() - 5)
-
     await this.clientsRepo.updateMany({
       where: {
         expirationDate: { lte: threeDaysAgo },
@@ -29,12 +26,6 @@ export class ClientsJobs {
       data: {
         isActive: false,
         isRecurring: false,
-      },
-    })
-
-    await this.clientsRepo.deleteMany({
-      where: {
-        expirationDate: { lte: fiveDaysAgo },
       },
     })
 

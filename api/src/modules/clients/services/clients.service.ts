@@ -28,7 +28,7 @@ export class ClientsService {
   async findAllByUserId(
     userId: string,
     expirationSortOrder: ClientExpirationDateSortOrderType = ClientExpirationDateSortOrderType.ASC,
-    login?: string,
+    search?: string,
     isActive?: string,
     page: number = 1,
     limit: number = 1,
@@ -44,7 +44,22 @@ export class ClientsService {
     const clients = await this.clientsRepo.findMany({
       where: {
         userId,
-        ...(login && { login }),
+        ...(search && {
+          OR: [
+            {
+              login: {
+                contains: search,
+                mode: 'insensitive',
+              },
+            },
+            {
+              name: {
+                contains: search,
+                mode: 'insensitive',
+              },
+            },
+          ],
+        }),
         ...((isActive === 'true' || isActive === 'false') && {
           isActive: isActive === 'true',
         }),
