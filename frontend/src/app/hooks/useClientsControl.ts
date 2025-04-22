@@ -9,5 +9,9 @@ export function useClientsControl(filters: ClientsFilters) {
     staleTime: Infinity,
   })
 
-  return { data, isFetching, refetchClients: refetch }
+  return {
+    data,
+    isFetching,
+    refetchClients: refetch,
+  }
 }

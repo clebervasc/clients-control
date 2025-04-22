@@ -6,17 +6,17 @@ import { useSearchController } from './useSearchController'
 
 export const Search = () => {
   const {
-    login,
+    search,
     status,
-    handleLogin,
+    handleSearch,
     handleStatus,
-    handleLoginSearch,
+    handleSearchSearch,
     handleStatusSearch,
     resetFilters,
   } = useSearchController()
 
   const handleSubmit = () => {
-    handleLoginSearch()
+    handleSearchSearch()
     handleStatusSearch()
   }
 
@@ -27,10 +27,10 @@ export const Search = () => {
           <div className="w-1/4">
             <Input
               name="search"
-              placeholder="Pesquisar por login"
+              placeholder="Pesquisar por nome/login"
               className="border-gray-300 focus:border-gray-500"
-              value={login}
-              onChange={(event) => handleLogin(event.target.value)}
+              value={search}
+              onChange={(event) => handleSearch(event.target.value)}
             />
           </div>
           <div className="w-1/4">
@@ -56,7 +56,11 @@ export const Search = () => {
             />
           </div>
           <div className="w-1/4 gap-4 flex">
-            <Button type="button" onClick={handleSubmit}>
+            <Button
+              type="button"
+              onClick={handleSubmit}
+              disabled={(search && search.length < 3) || false}
+            >
               <SearchIcon className="w-4 h-4" />
             </Button>
             <Button type="button" variant="ghost" onClick={resetFilters}>
@@ -64,6 +68,9 @@ export const Search = () => {
             </Button>
           </div>
         </div>
+        <p className="p-2 text-xs text-gray-700 dark:text-white">
+          O campo de busca deve ter pelo menos 3 caracteres.
+        </p>
       </form>
     </div>
   )

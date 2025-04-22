@@ -4,7 +4,7 @@ import { httpClient } from '../httpClient'
 export type ClientsFilters = {
   page: number
   limit: number
-  login?: string
+  search?: string
   isActive?: null | boolean
 }
 

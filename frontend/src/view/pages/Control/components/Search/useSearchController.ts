@@ -3,19 +3,19 @@ import { useClientsController } from '../ControlCard/useClientsController'
 
 export const useSearchController = () => {
   const { handleChangeFilters } = useClientsController()
-  const [login, setLogin] = useState('')
+  const [search, setSearch] = useState('')
   const [status, setStatus] = useState('Todos')
 
-  const handleLogin = (value: string) => {
-    setLogin(value)
+  const handleSearch = (value: string) => {
+    setSearch(value)
   }
 
   const handleStatus = (value: string) => {
     setStatus(value)
   }
 
-  const handleLoginSearch = () => {
-    handleChangeFilters('login')(login)
+  const handleSearchSearch = () => {
+    handleChangeFilters('search')(search)
   }
 
   const handleStatusSearch = () => {
@@ -31,19 +31,19 @@ export const useSearchController = () => {
   }
 
   const resetFilters = () => {
-    setLogin('')
+    setSearch('')
     setStatus('Todos')
-    handleChangeFilters('login')('')
+    handleChangeFilters('search')('')
     handleChangeFilters('isActive')(null)
   }
 
   return {
-    login,
+    search,
     status,
-    handleLogin,
+    handleSearch,
     handleStatusSearch,
     handleStatus,
-    handleLoginSearch,
+    handleSearchSearch,
     resetFilters,
   }
 }
